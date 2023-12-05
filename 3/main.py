@@ -2,10 +2,9 @@
 schematic_array = []
 sum_of_parts = 0
 
-def find_full_digit(y_coor: int, x_coor: int):
+def find_full_digit(y_coor: int, x_coor: int) -> int:
 
     digit_array = []
-    global sum_of_parts
 
     while schematic_array[y_coor][x_coor - 1].isdigit():
         
@@ -23,42 +22,73 @@ def find_full_digit(y_coor: int, x_coor: int):
 
     digit = int(''.join(digit_array))
 
-    sum_of_parts = sum_of_parts + digit
+    return digit
 
 
 def check_for_digits_around(y_coor: int, x_coor: int):
 
+    cardinailty_of_point = 0
+    global sum_of_parts
+    mult_of_point = 1
+
     if schematic_array[y_coor - 1][x_coor - 1].isdigit():   #top left
 
-        find_full_digit(y_coor - 1, x_coor - 1)
+        digit = find_full_digit(y_coor - 1, x_coor - 1)
+        mult_of_point = mult_of_point * digit
+
+        cardinailty_of_point = cardinailty_of_point + 1
 
     if schematic_array[y_coor - 1][x_coor].isdigit():       #top
 
-        find_full_digit(y_coor - 1, x_coor)
+        digit = find_full_digit(y_coor - 1, x_coor)
+        mult_of_point = mult_of_point * digit
+        
+        cardinailty_of_point = cardinailty_of_point + 1
 
     if schematic_array[y_coor - 1][x_coor + 1].isdigit():   #top right
 
-        find_full_digit(y_coor - 1, x_coor + 1)
+        digit = find_full_digit(y_coor - 1, x_coor + 1)
+        mult_of_point = mult_of_point * digit
+        
+        cardinailty_of_point = cardinailty_of_point + 1
 
     if schematic_array[y_coor][x_coor - 1].isdigit():       #left
 
-        find_full_digit(y_coor, x_coor - 1)
+        digit = find_full_digit(y_coor, x_coor - 1)
+        digit = mult_of_point = mult_of_point * digit
+        
+        cardinailty_of_point = cardinailty_of_point + 1
 
     if schematic_array[y_coor][x_coor + 1].isdigit():       #right
 
-        find_full_digit(y_coor, x_coor + 1)
+        digit = find_full_digit(y_coor, x_coor + 1)
+        mult_of_point = mult_of_point * digit
+        
+        cardinailty_of_point = cardinailty_of_point + 1
 
     if schematic_array[y_coor + 1][x_coor - 1].isdigit():   #bottom left
 
-        find_full_digit(y_coor + 1, x_coor - 1)
+        digit = find_full_digit(y_coor + 1, x_coor - 1)
+        mult_of_point = mult_of_point * digit
+        
+        cardinailty_of_point = cardinailty_of_point + 1
     
     if schematic_array[y_coor + 1][x_coor].isdigit():       #bottom
 
-        find_full_digit(y_coor + 1, x_coor)
+        digit = find_full_digit(y_coor + 1, x_coor)
+        mult_of_point = mult_of_point * digit
+        
+        cardinailty_of_point = cardinailty_of_point + 1
 
     if schematic_array[y_coor + 1][x_coor + 1].isdigit():   #bottom right
 
-            find_full_digit(y_coor + 1, x_coor + 1)
+        digit = find_full_digit(y_coor + 1, x_coor + 1)
+        mult_of_point = mult_of_point * digit
+        
+        cardinailty_of_point = cardinailty_of_point + 1
+
+    if cardinailty_of_point > 1:
+        sum_of_parts = sum_of_parts + mult_of_point
 
 
 def check_for_special_characters(schematic_array: list[list]):
