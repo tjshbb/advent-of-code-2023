@@ -1,33 +1,64 @@
 #global variables
 schematic_array = []
+sum_of_parts = 0
+
+def find_full_digit(y_coor: int, x_coor: int):
+
+    digit_array = []
+    global sum_of_parts
+
+    while schematic_array[y_coor][x_coor - 1].isdigit():
+        
+        if x_coor - 1 >= 0:
+            x_coor = x_coor - 1
+
+    while schematic_array[y_coor][x_coor].isdigit():
+        
+        digit_array.append(schematic_array[y_coor][x_coor])
+        schematic_array[y_coor][x_coor] = '.'
+        x_coor = x_coor + 1
+
+        if x_coor > 139:
+            break
+
+    digit = int(''.join(digit_array))
+
+    sum_of_parts = sum_of_parts + digit
+
 
 def check_for_digits_around(y_coor: int, x_coor: int):
 
-    print(y_coor, ", ", x_coor)
-
     if schematic_array[y_coor - 1][x_coor - 1].isdigit():   #top left
-        print('digit found')
+
+        find_full_digit(y_coor - 1, x_coor - 1)
 
     if schematic_array[y_coor - 1][x_coor].isdigit():       #top
-        print('digit found')
+
+        find_full_digit(y_coor - 1, x_coor)
 
     if schematic_array[y_coor - 1][x_coor + 1].isdigit():   #top right
-        print('digit found')
-    
+
+        find_full_digit(y_coor - 1, x_coor + 1)
+
     if schematic_array[y_coor][x_coor - 1].isdigit():       #left
-        print('digit found')
+
+        find_full_digit(y_coor, x_coor - 1)
 
     if schematic_array[y_coor][x_coor + 1].isdigit():       #right
-        print('digit found')
-    
+
+        find_full_digit(y_coor, x_coor + 1)
+
     if schematic_array[y_coor + 1][x_coor - 1].isdigit():   #bottom left
-        print('digit found')
+
+        find_full_digit(y_coor + 1, x_coor - 1)
     
     if schematic_array[y_coor + 1][x_coor].isdigit():       #bottom
-        print('digit found')
+
+        find_full_digit(y_coor + 1, x_coor)
 
     if schematic_array[y_coor + 1][x_coor + 1].isdigit():   #bottom right
-        print('digit found')
+
+            find_full_digit(y_coor + 1, x_coor + 1)
 
 
 def check_for_special_characters(schematic_array: list[list]):
@@ -58,6 +89,7 @@ def main():
 
     check_for_special_characters(schematic_array)
     
+    print(sum_of_parts)
 
 
 
